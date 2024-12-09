@@ -28,6 +28,13 @@ import "math"
 // exention -> exection (将 'n' 替换为 'c')
 // exection -> execution (插入 'u')
 
+// 思路总结：
+// 动态规划，用dp[x][y]表示a[x-1]和b[y-1]的编辑距离（注意x，y为字符长度，并非字符index，所以x=len(a),y=len(b)）
+// 而a[x]和b[y]的编辑距离向前规划可分为三种情况
+// 1.dp[x-1][y]+1
+// 2.dp[x][y-1]+1
+// 3.dp[x-1][y-1] 若a[x-1]!=b[y-1]则再+1（注意x，y为字符长度）
+
 // 递归
 func minDistance(word1 string, word2 string) int {
 	fr := []rune(word1)
