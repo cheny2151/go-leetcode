@@ -12,22 +12,37 @@ type ListNode struct {
 }
 
 func mergeTwoLists(list1 *ListNode, list2 *ListNode) *ListNode {
-	cur := list1
-	cur2 := &ListNode{Next: list2}
+	if list1 == nil {
+		return list2
+	} else if list2 == nil {
+		return list1
+	}
+	var cur, cur2 *ListNode
+	if list1.Val <= list2.Val {
+		cur, cur2 = list1, &ListNode{Next: list2}
+	} else {
+		cur, cur2 = list2, &ListNode{Next: list1}
+	}
+	root := cur
 	for cur.Next != nil {
 		var start *ListNode
-		for cur2.Next.Val <= cur.Val {
+		for cur2.Next != nil && cur2.Next.Val <= cur.Next.Val {
 			if start == nil {
 				start = cur2.Next
 			}
 			cur2 = cur2.Next
 		}
 		if start != nil {
-
+			cur.Next, cur = start, cur.Next
+			cur2Next := cur2.Next
+			cur2.Next = cur
+			cur2 = &ListNode{Next: cur2Next}
+		} else {
+			cur = cur.Next
 		}
 	}
 
 	cur.Next = cur2.Next
 
-	return list1
+	return root
 }
