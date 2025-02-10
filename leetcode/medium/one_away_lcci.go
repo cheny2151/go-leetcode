@@ -24,6 +24,7 @@ func oneEditAway(first string, second string) bool {
 	}
 	fix := false
 	fi, si := 0, 0
+	// 双指针，从头遍历，直到至少有一个完成遍历
 	for fi < len(fr) && si < len(sr) {
 		if fr[fi] == sr[si] {
 			fi++
@@ -45,9 +46,11 @@ func oneEditAway(first string, second string) bool {
 			fix = true
 		}
 	}
-	if fix && fi >= len(fr) && si >= len(sr) {
+	if fix && fi == len(fr) && si == len(sr) {
+		// 1：fix过的则必须都完成了遍历
 		return true
 	} else if !fix && math.Abs(float64(len(fr)-len(sr))) < 2 {
+		// 2：未fix过的则长度最多只能相差1
 		return true
 	}
 	return false
