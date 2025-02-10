@@ -82,8 +82,8 @@ func lowestCommonAncestor2(root, p, q *TreeNode3) *TreeNode3 {
 	if root.Val == p.Val || root.Val == q.Val {
 		return root
 	}
-	left := lowestCommonAncestor(root.Left, p, q)
-	right := lowestCommonAncestor(root.Right, p, q)
+	left := lowestCommonAncestor2(root.Left, p, q)
+	right := lowestCommonAncestor2(root.Right, p, q)
 	if left != nil && right != nil {
 		return root
 	}
