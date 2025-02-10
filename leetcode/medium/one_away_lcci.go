@@ -52,3 +52,31 @@ func oneEditAway(first string, second string) bool {
 	}
 	return false
 }
+
+// 编辑距离解法：性能较差
+func oneEditAway2(first string, second string) bool {
+	fr := []rune(first)
+	sr := []rune(second)
+
+	dp := make([][]int, len(fr)+1)
+	for i := 0; i <= len(fr); i++ {
+		dp[i] = make([]int, len(sr)+1)
+		dp[i][0] = i
+	}
+	for i := 0; i <= len(sr); i++ {
+		dp[0][i] = i
+	}
+
+	for i := 1; i <= len(fr); i++ {
+		for j := 1; j <= len(sr); j++ {
+			plan := min(dp[i-1][j]+1, dp[i][j-1]+1)
+			plan2 := dp[i-1][j-1]
+			if fr[i-1] != sr[j-1] {
+				plan2++
+			}
+			plan = min(plan, plan2)
+			dp[i][j] = plan
+		}
+	}
+	return dp[len(fr)][len(sr)] <= 1
+}
