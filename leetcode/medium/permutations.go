@@ -45,3 +45,26 @@ func cpAndMv(i, j int, nums []int) []int {
 	nums0[i], nums0[j] = nums0[j], nums0[i]
 	return nums0
 }
+
+func permute2(nums []int) (ans [][]int) {
+	n := len(nums)
+	path := make([]int, n)
+	onPath := make([]bool, n)
+	var dfs func(int)
+	dfs = func(i int) {
+		if i == n {
+			ans = append(ans, append([]int(nil), path...))
+			return
+		}
+		for j, on := range onPath {
+			if !on {
+				path[i] = nums[j]
+				onPath[j] = true
+				dfs(i + 1)
+				onPath[j] = false
+			}
+		}
+	}
+	dfs(0)
+	return
+}
