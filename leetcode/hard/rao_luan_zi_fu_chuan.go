@@ -58,7 +58,7 @@ func isScramble(s1 string, s2 string) bool {
 						dp[a][b][k] = true
 						break
 					}
-					// a,b=k-(i+1)
+					// b+=k-(i-1)，a+=k-(k-i)
 					if dp[a][b+k-i+1][i-1] && dp[a+i][b][k-i] {
 						dp[a][b][k] = true
 						break
