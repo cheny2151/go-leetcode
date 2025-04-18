@@ -38,3 +38,13 @@ func maxSubArray(nums []int) int {
 	}
 	return max
 }
+
+func maxSubArray2(nums []int) int {
+	pre, maxVal := nums[0], nums[0]
+	for i := 1; i < len(nums); i++ {
+		cur := nums[i]
+		pre = max(cur, pre+cur)
+		maxVal = max(pre, maxVal)
+	}
+	return maxVal
+}
